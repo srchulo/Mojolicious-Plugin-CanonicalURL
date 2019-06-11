@@ -7,7 +7,7 @@ get '/found' => sub {
     shift->render(text => 'I exist!');
 };
 
-plugin CanonicalURL => { end_with_slash => 1 };
+plugin CanonicalURL => {end_with_slash => 1};
 
 my $t = Test::Mojo->new;
 

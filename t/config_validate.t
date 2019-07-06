@@ -35,20 +35,25 @@ lives_ok {
 }, 'CODE reference should_canonicalize_request lives';
 
 # test captures
-throws_ok { plugin CanonicalURL => {should_canonicalize_request => \'return $next->()', captures => undef} }
-qr/captures must be a HASH reference/,
-  'undef captures throws';
-throws_ok { plugin CanonicalURL => {should_canonicalize_request => \'return $next->()', captures => 1} }
-qr/captures must be a HASH reference/,
-  'int captures throws';
-throws_ok { plugin CanonicalURL => {should_canonicalize_request => \'return $next->()', captures => 'hi'} }
-qr/captures must be a HASH reference/,
-  'string captures throws';
-throws_ok { plugin CanonicalURL => {should_canonicalize_request => \'return $next->()', captures => []} }
-qr/captures must be a HASH reference/,
-  'array captures throws';
-lives_ok { plugin CanonicalURL => {should_canonicalize_request => \'return $next->()', captures => {}} },
-  'hash captures lives';
+throws_ok {
+    plugin CanonicalURL => {should_canonicalize_request => \'return $next->()', captures => undef}
+}
+qr/captures must be a HASH reference/, 'undef captures throws';
+throws_ok {
+    plugin CanonicalURL => {should_canonicalize_request => \'return $next->()', captures => 1}
+}
+qr/captures must be a HASH reference/, 'int captures throws';
+throws_ok {
+    plugin CanonicalURL => {should_canonicalize_request => \'return $next->()', captures => 'hi'}
+}
+qr/captures must be a HASH reference/, 'string captures throws';
+throws_ok {
+    plugin CanonicalURL => {should_canonicalize_request => \'return $next->()', captures => []}
+}
+qr/captures must be a HASH reference/, 'array captures throws';
+lives_ok {
+    plugin CanonicalURL => {should_canonicalize_request => \'return $next->()', captures => {}}
+}, 'hash captures lives';
 
 # test do_not_canonicalize
 throws_ok { plugin CanonicalURL => {do_not_canonicalize => undef} }
@@ -73,19 +78,13 @@ throws_ok { plugin CanonicalURL => {do_not_canonicalize => 1} }
 qr{do_not_canonicalize must be a scalar that evaluates to true and starts with a '/', a REGEXP, or array reference},
   'do_not_canonicalize passed int fails';
 lives_ok {
-    plugin CanonicalURL => {
-        do_not_canonicalize => '/path'
-    }
+    plugin CanonicalURL => {do_not_canonicalize => '/path'}
 }, 'do_not_canonicalize passed string that starts with slash lives';
 lives_ok {
-    plugin CanonicalURL => {
-        do_not_canonicalize => qr/bar/
-    }
+    plugin CanonicalURL => {do_not_canonicalize => qr/bar/}
 }, 'do_not_canonicalize passed regex lives';
 lives_ok {
-    plugin CanonicalURL => {
-        do_not_canonicalize => []
-    }
+    plugin CanonicalURL => {do_not_canonicalize => []}
 }, 'do_not_canonicalize passed arrayref lives';
 
 # test elements when do_not_canonicalize is array
@@ -106,14 +105,10 @@ throws_ok { plugin CanonicalURL => {do_not_canonicalize => [[]]} }
 qr/elements of do_not_canonicalize must have a reftype of undef \(scalar\), REGEXP, or HASH but was 'ARRAY'/,
   'arrayref element of do_not_canonicalize throws';
 lives_ok {
-    plugin CanonicalURL => {
-        do_not_canonicalize => ['/path']
-    }
+    plugin CanonicalURL => {do_not_canonicalize => ['/path']}
 }, 'do_not_canonicalize passed array with string that starts with slash lives';
 lives_ok {
-    plugin CanonicalURL => {
-        do_not_canonicalize => [qr/bar/]
-    }
+    plugin CanonicalURL => {do_not_canonicalize => [qr/bar/]}
 }, 'do_not_canonicalize passed array with regex lives';
 
 # array elements that are scalars and do not begin with a slash throw
@@ -138,60 +133,57 @@ throws_ok { plugin CanonicalURL => {do_not_canonicalize => [{starts_with => 'nos
 qr{value for starts_with must begin with a '/'},
   q{scalar that doesn't begin with a '/' for starts_with for hash element of do_not_canonicalize throws};
 my $key_value_dump = Mojo::Util::dumper {key => 'value'};
-throws_ok { plugin CanonicalURL => {do_not_canonicalize => [{starts_with => '/path', key => 'value'}]} }
+throws_ok {
+    plugin CanonicalURL => {do_not_canonicalize => [{starts_with => '/path', key => 'value'}]}
+}
 qr/unknown keys passed in hash inside of do_not_canonicalize \Q$key_value_dump\E/,
   'extra keys/values for hash element of do_not_canonicalize throws';
 lives_ok {
-    plugin CanonicalURL => {
-        do_not_canonicalize => [{ starts_with => '/path' }]
-    }
+    plugin CanonicalURL => {do_not_canonicalize => [{starts_with => '/path'}]}
 }, 'do_not_canonicalize passed array with hashref and starts_with path with slash lives';
 
 # test canonicalize_before_render
 throws_ok { plugin CanonicalURL => {canonicalize_before_render => []} }
-qr/canonicalize_before_render must be a scalar value/,
-  'array canonicalize_before_render throws';
+qr/canonicalize_before_render must be a scalar value/, 'array canonicalize_before_render throws';
 throws_ok { plugin CanonicalURL => {canonicalize_before_render => {}} }
-qr/canonicalize_before_render must be a scalar value/,
-  'hash canonicalize_before_render throws';
+qr/canonicalize_before_render must be a scalar value/, 'hash canonicalize_before_render throws';
 lives_ok { plugin CanonicalURL => {canonicalize_before_render => undef} }
-  'undef canonicalize_before_render lives';
+'undef canonicalize_before_render lives';
 lives_ok { plugin CanonicalURL => {canonicalize_before_render => 1} }
-  '1 canonicalize_before_render lives';
+'1 canonicalize_before_render lives';
 
 # test that captures only applies when should_canonicalize_request is a scalar reference
-throws_ok { plugin CanonicalURL => { should_canonicalize_request => 1, captures => {} } }
+throws_ok { plugin CanonicalURL => {should_canonicalize_request => 1, captures => {}} }
 qr/captures only applies when should_canonicalize_request is a scalar reference/,
   'scalar should_canonicalize_request with captures throws';
-throws_ok { plugin CanonicalURL => { should_canonicalize_request => qr/bar/, captures => {} } }
+throws_ok { plugin CanonicalURL => {should_canonicalize_request => qr/bar/, captures => {}} }
 qr/captures only applies when should_canonicalize_request is a scalar reference/,
   'REGEXP should_canonicalize_request with captures throws';
-throws_ok { plugin CanonicalURL => { should_canonicalize_request => sub {}, captures => {} } }
+throws_ok {
+    plugin CanonicalURL => {should_canonicalize_request => sub { }, captures => {}}
+}
 qr/captures only applies when should_canonicalize_request is a scalar reference/,
   'CODE should_canonicalize_request with captures throws';
-throws_ok { plugin CanonicalURL => { do_not_canonicalize => '/path', captures => {} } }
+throws_ok { plugin CanonicalURL => {do_not_canonicalize => '/path', captures => {}} }
 qr/captures only applies when should_canonicalize_request is a scalar reference/,
   'string do_not_canonicalize with captures throws';
 
 # test end_with_slash must be a scalar value
 throws_ok { plugin CanonicalURL => {end_with_slash => {}} }
-qr/end_with_slash must be a scalar value/,
-  'hashref end_with_slash throws';
+qr/end_with_slash must be a scalar value/, 'hashref end_with_slash throws';
 throws_ok { plugin CanonicalURL => {end_with_slash => []} }
-qr/end_with_slash must be a scalar value/,
-  'arrayref end_with_slash throws';
+qr/end_with_slash must be a scalar value/, 'arrayref end_with_slash throws';
 lives_ok { plugin CanonicalURL => {end_with_slash => undef} }
-  'undef end_with_slash lives';
+'undef end_with_slash lives';
 lives_ok { plugin CanonicalURL => {end_with_slash => 1} }
-  '1 end_with_slash lives';
+'1 end_with_slash lives';
 lives_ok { plugin CanonicalURL => {end_with_slash => 'string'} }
-  'string end_with_slash lives';
+'string end_with_slash lives';
 
 # test unknown keys not allowed
 $key_value_dump = Mojo::Util::dumper {key => 'value'};
 throws_ok { plugin CanonicalURL => {key => 'value'} }
-qr/unknown keys passed in config: \Q$key_value_dump\E/,
-  'extra keys/values for config throws';
+qr/unknown keys passed in config: \Q$key_value_dump\E/, 'extra keys/values for config throws';
 throws_ok { plugin CanonicalURL => {end_with_slash => 1, key => 'value'} }
 qr/unknown keys passed in config: \Q$key_value_dump\E/,
   'extra keys/values for config with legitimate values throws';

@@ -1,6 +1,7 @@
 Revision history for Mojolicious-Plugin-CanonicalURL
 
 {{$NEXT}}
+        - Fix broken build due to get_ok with a 404.
 
 0.01  2019-10-27 18:11:41 CDT
         - Initial release

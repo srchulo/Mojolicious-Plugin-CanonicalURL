@@ -63,8 +63,14 @@ for my $option (qw(should_canonicalize_request should_not_canonicalize_request))
     "$option passed array with true element lives";
 
     throws_ok { plugin CanonicalURL => {$option => [[]]} }
-    qr/elements of $option must have a reftype of undef \(scalar\), REGEXP, or HASH but was 'ARRAY'/,
+    qr/elements of $option must have a reftype of undef \(scalar\), CODE, HASH, REGEXP, or SCALAR but was 'ARRAY'/,
     "$option passed array with array element throws";
+
+    lives_ok { plugin CanonicalURL => {$option => [sub {}]} }
+    "$option passed array with code element lives";
+
+    lives_ok { plugin CanonicalURL => {$option => [\q{$c->req->url->path eq '/foo'}]} }
+    "$option passed array with scalar reference element lives";
 
     lives_ok { plugin CanonicalURL => {$option => [qr//]} }
     "$option passed array with regex element lives";
@@ -137,8 +143,14 @@ qr/captures only applies when inline_code is set or a scalar reference is passed
 lives_ok { plugin CanonicalURL => {should_canonicalize_request => \'$c->req->url->path eq $my_var', captures => {'$my_var' => '/path'}} }
 'captures used with scalar ref for should_canonicalize_request lives';
 
+lives_ok { plugin CanonicalURL => {should_canonicalize_request => [\'$c->req->url->path eq $my_var'], captures => {'$my_var' => '/path'}} }
+'captures used with scalar ref in array for should_canonicalize_request lives';
+
 lives_ok { plugin CanonicalURL => {should_not_canonicalize_request => \'$c->req->url->path eq $my_var', captures => {'$my_var' => '/path'}} }
 'captures used with scalar ref for should_not_canonicalize_request lives';
+
+lives_ok { plugin CanonicalURL => {should_not_canonicalize_request => [\'$c->req->url->path eq $my_var'], captures => {'$my_var' => '/path'}} }
+'captures used with scalar ref in array for should_not_canonicalize_request lives';
 
 lives_ok { plugin CanonicalURL => {inline_code => 'return $next->() if $c->req->url->path eq $my_var;', captures => {'$my_var' => '/path'}} }
 'captures used with inline_code lives';

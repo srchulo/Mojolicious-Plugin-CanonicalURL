@@ -1,5 +1,5 @@
 {
-   "abstract" : "Blah blah blah",
+   "abstract" : "Ensures canonical URLs via redirection",
    "author" : [
       "Adam Hopkins <srchulo@cpan.org>"
    ],
@@ -37,19 +37,37 @@
       },
       "runtime" : {
          "requires" : {
-            "perl" : "5.008005"
+            "Mojolicious" : "0",
+            "Sub::Quote" : "0",
+            "perl" : "5.010001"
          }
       },
       "test" : {
          "requires" : {
-            "Test::More" : "0.96"
+            "Test::Exception" : "0",
+            "Test::More" : "0.96",
+            "Test::Warn" : "0"
          }
       }
    },
    "release_status" : "stable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/srchulo/Mojolicious-Plugin-CanonicalURL/issues"
+      },
+      "homepage" : "https://github.com/srchulo/Mojolicious-Plugin-CanonicalURL",
+      "repository" : {
+         "type" : "git",
+         "url" : "https://github.com/srchulo/Mojolicious-Plugin-CanonicalURL.git",
+         "web" : "https://github.com/srchulo/Mojolicious-Plugin-CanonicalURL"
+      }
+   },
    "version" : "0.01",
-   "x_generated_by_perl" : "v5.28.0",
-   "x_serialization_backend" : "Cpanel::JSON::XS version 4.08",
+   "x_contributors" : [
+      "Adam Hopkins <violapiratejunky@gmail.com>"
+   ],
+   "x_generated_by_perl" : "v5.30.0",
+   "x_serialization_backend" : "Cpanel::JSON::XS version 4.13",
    "x_static_install" : 1
 }
 

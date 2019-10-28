@@ -37,7 +37,7 @@
       },
       "runtime" : {
          "requires" : {
-            "Mojolicious" : "0",
+            "Mojolicious" : "7.15",
             "Sub::Quote" : "0",
             "perl" : "5.010001"
          }
@@ -62,7 +62,7 @@
          "web" : "https://github.com/srchulo/Mojolicious-Plugin-CanonicalURL"
       }
    },
-   "version" : "0.04",
+   "version" : "0.05",
    "x_contributors" : [
       "Adam Hopkins <violapiratejunky@gmail.com>"
    ],

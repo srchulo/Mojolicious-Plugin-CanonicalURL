@@ -1,6 +1,8 @@
 Revision history for Mojolicious-Plugin-CanonicalURL
 
 {{$NEXT}}
+
+0.05  2019-10-28 11:32:01 CDT
         - Bump minimum Mojolicious version to 7.15 when Mojo::File was introduced.
 
 0.04  2019-10-28 11:26:43 CDT

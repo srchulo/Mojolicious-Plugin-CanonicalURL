@@ -1,6 +1,7 @@
 Revision history for Mojolicious-Plugin-CanonicalURL
 
 {{$NEXT}}
+        - Bump minimum Mojolicious version to 7.15 when Mojo::File was introduced.
 
 0.04  2019-10-28 11:26:43 CDT
         - Add parentheses to shift in _get_should_canonicalize_request_config_name() to fix old perls.

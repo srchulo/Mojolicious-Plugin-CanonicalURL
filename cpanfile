@@ -1,6 +1,6 @@
 requires 'perl', '5.010001';
 
-requires 'Mojolicious';
+requires 'Mojolicious', '7.15';
 requires 'Sub::Quote';
 
 on develop => sub {

@@ -358,7 +358,7 @@ sub _create_should_canonicalize_request_sub_string {
 }
 
 sub _get_should_canonicalize_request_config_name {
-    return shift ? 'should_canonicalize_request' : 'should_not_canonicalize_request';
+    return shift() ? 'should_canonicalize_request' : 'should_not_canonicalize_request';
 }
 
 sub remove_trailing_slashes {

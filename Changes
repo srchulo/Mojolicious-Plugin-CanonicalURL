@@ -1,6 +1,7 @@
 Revision history for Mojolicious-Plugin-CanonicalURL
 
 {{$NEXT}}
+        - Add parentheses to shift in _get_should_canonicalize_request_config_name() to fix old perls.
 
 0.03  2019-10-27 19:07:58 CDT
         - Don't test on broken travis-perl perls https://github.com/travis-perl/helpers/issues/71.

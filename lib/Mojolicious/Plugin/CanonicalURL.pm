@@ -6,7 +6,7 @@ use Mojo::Util   ();
 use Scalar::Util ();
 use Sub::Quote   ();
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 our @EXPORT_OK = qw(remove_trailing_slashes);
 

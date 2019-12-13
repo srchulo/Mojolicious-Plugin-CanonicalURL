@@ -1,6 +1,8 @@
 Revision history for Mojolicious-Plugin-CanonicalURL
 
 {{$NEXT}}
+
+0.06  2019-12-13 13:23:34 CST
         - Use App::CISetup for .travis.yml.
         - Include coveralls status.
 

@@ -382,7 +382,7 @@ Mojolicious::Plugin::CanonicalURL - Ensures canonical URLs via redirection
 
 =head1 STATUS
 
-=for html <a href="https://travis-ci.org/srchulo/Mojolicious-Plugin-CanonicalURL"><img src="https://travis-ci.org/srchulo/Mojolicious-Plugin-CanonicalURL.svg?branch=master"></a>
+=for html <a href="https://travis-ci.org/srchulo/Mojolicious-Plugin-CanonicalURL"><img src="https://travis-ci.org/srchulo/Mojolicious-Plugin-CanonicalURL.svg?branch=master"></a> <a href='https://coveralls.io/github/srchulo/Mojolicious-Plugin-CanonicalURL'><img src='https://coveralls.io/repos/github/srchulo/Mojolicious-Plugin-CanonicalURL/badge.svg' alt='Coverage Status' /></a>
 
 =head1 SYNOPSIS
 

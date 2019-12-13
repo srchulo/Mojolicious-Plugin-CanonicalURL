@@ -1,7 +1,7 @@
 {
    "abstract" : "Ensures canonical URLs via redirection ",
    "author" : [
-      "Adam Hopkins <srchulo@cpan.org>"
+      "Adam Hopkins <srchulo@cpan.org>\r"
    ],
    "dynamic_config" : 0,
    "generated_by" : "Dist::Milla version v1.0.20, Dist::Zilla version 6.012, CPAN::Meta::Converter version 2.150010",
